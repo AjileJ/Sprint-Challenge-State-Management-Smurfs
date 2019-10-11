@@ -6,7 +6,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>SMURFS! 2.0 W/ Redux</h1>
+        <h1>SMURFS! 2.0 ! Welcome to the smurf village</h1>
+        <img src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkGfttlsHdG70eC5gtHa8tpXZL2jHw3C8i1F0jicWYiwfvfRCsQg'/>
         <SmurfInfo/>
         <FormikLoginForm />
       </div>
