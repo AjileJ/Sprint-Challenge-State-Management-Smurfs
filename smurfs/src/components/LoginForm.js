@@ -3,6 +3,8 @@ import ReactDom from 'react-dom';
 import {withFormik, Form, Field} from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import {addSmurf} from '../actions/index';
+import {connect} from 'react-redux';
 
 function LoginForm({ values,errors,touched, isSubmitting }){
   return (
@@ -25,11 +27,12 @@ function LoginForm({ values,errors,touched, isSubmitting }){
 }
 
 const FormikLoginForm = withFormik({
-  mapPropsToValues({name, age, height}){
+  mapPropsToValues({addSmurf,name, age, height}){
     return {
       name: name || '',
       age: age || '',
-      height: height || ''
+      height: height || '',
+      addSmurf: addSmurf
     };
   },
   validationSchema: Yup.object().shape({
@@ -44,18 +47,11 @@ const FormikLoginForm = withFormik({
     if (values.name === "Brainey") {
       setErrors({name: "That Name is already taken"});
     }else {
-      axios
-      .post('http://localhost:3333/smurfs', values)
-      .then(res => {
-        console.log(res);
-        resetForm();
-        setSubmitting(false);
-      })
-      .catch(err => {
-        console.log(err);
-        setSubmitting(false);
-      });
+      console.log(values);
+     values.addSmurf({name:values.name, age:values.age,height:values.height});
+     resetForm();
+     
     }
   }
 })(LoginForm);
-export default FormikLoginForm;
+export default connect(null, {addSmurf})(FormikLoginForm);
